@@ -7,5 +7,6 @@ Eg commit.d/
 
 ## History
 
-|Version|Descriptino|
+|Version|Description|
+|---|---|
 |0.1.0|Initial implementation|
