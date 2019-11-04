@@ -19,4 +19,5 @@ Platform agnostic scripts are located within a special directory name `agnostic`
 
 |Version|Description|
 |---|---|
+|0.2.0|Add support for platform specific and agnostic scripts|
 |0.1.0|Initial implementation|
