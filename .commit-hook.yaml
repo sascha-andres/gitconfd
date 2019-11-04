@@ -1,0 +1,21 @@
+---
+body-required: false
+
+lint_gitlab_ci: false
+
+subject:
+  - severity: warning
+    expression: "^[a-z]{1,6}:"
+    name: prefixed line
+
+external-tools:
+  - severity: error
+    name: gofmt
+    command:
+      - make
+      - fmt-run
+  - severity: error
+    name: unit tests
+    command:
+      - make
+      - test
