@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"runtime"
 	"syscall"
 )
 
@@ -16,12 +17,25 @@ func Execute(baseDirectory, hookType string) bool {
 	confDirectory := path.Join(baseDirectory, fmt.Sprintf(".%s.d", hookType))
 	if s, err := os.Stat(confDirectory); os.IsNotExist(err) || !s.IsDir() {
 		return true
-	} else {
-		err := filepath.Walk(confDirectory, visit)
+	}
+
+	specific := path.Join(confDirectory, runtime.GOOS)
+
+	if s, err := os.Stat(specific); (err == nil || os.IsExist(err)) && s.IsDir() {
+		err := filepath.Walk(specific, visit)
 		if err != nil {
 			return false
 		}
 	}
+
+	agnostic := path.Join(confDirectory, "agnostic")
+	if s, err := os.Stat(agnostic); (err == nil || os.IsExist(err)) && s.IsDir() {
+		err := filepath.Walk(agnostic, visit)
+		if err != nil {
+			return false
+		}
+	}
+
 	return true
 }
 
